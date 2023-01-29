@@ -1,8 +1,11 @@
 ext {
     kotlin_version = "1.8.0"
-    hilt_version = "2.28-alpha"
+    material_version = "1.7.0"
+    material3_version = "1.0.1"
+    hilt_version = "2.44"
     compose_version = "1.4.0-alpha05"
     lifecycle_version = "2.2.0"
+    compose_lifecycle_version = "2.5.1"
     ktx_version = "1.9.0"
     appcompat_version = "1.6.0"
     viewmodel_version = "2.5.1"
@@ -10,5 +13,7 @@ ext {
     junit_version = "4.13.2"
     junit_test_version = "1.1.5"
     expresso_core_version = "3.5.1"
+    activity_ktx_version = "1.6.1"
+    activity_version = "1.6.1"
 
 }

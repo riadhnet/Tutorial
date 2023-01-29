@@ -1,8 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
-
-
+apply plugin: 'com.google.dagger.hilt.android'
 
 android {
     namespace 'com.riadh.tutorial'
@@ -35,6 +34,11 @@ android {
 
     buildFeatures {
         viewBinding true
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.4.0" // Compatible version https://developer.android.com/jetpack/androidx/releases/compose-kotlin
     }
 
 }
@@ -44,12 +48,19 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "androidx.core:core-ktx:$ktx_version"
+    implementation "androidx.activity:activity-ktx:$activity_ktx_version"
+    implementation "androidx.activity:activity-compose:$activity_version"
+    implementation "androidx.compose.material3:material3:$material3_version"
+
     implementation "androidx.appcompat:appcompat:$appcompat_version"
 
     // Jetpack Compose dependencies
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.foundation:foundation:$compose_version"
     implementation "androidx.compose.material:material:$compose_version"
+    implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
+    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
+
     kapt "androidx.compose.compiler:compiler:$compose_compiler_version"
 
     // Hilt dependencies
@@ -59,8 +70,14 @@ dependencies {
     // MVVM dependencies
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewmodel_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$compose_lifecycle_version"
 
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "androidx.test.ext:junit:$junit_test_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$expresso_core_version"
+}
+
+// Allow references to generated code
+kapt {
+    correctErrorTypes = true
 }
