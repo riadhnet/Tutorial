@@ -11,6 +11,7 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Switch
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -18,6 +19,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun TimeServiceLayout(viewModel: TimeServiceViewModel) {
+    val enabled = viewModel.enabled.observeAsState(false)
     MaterialTheme {
         Surface(color = Color.White) {
             Column(
@@ -33,8 +35,10 @@ fun TimeServiceLayout(viewModel: TimeServiceViewModel) {
 
                 Spacer(modifier = Modifier.height(16.dp))
                 Switch(
-                    checked = viewModel.enabled.value == true,
-                    onCheckedChange = { viewModel.enabled.value = it }
+                    onCheckedChange = {
+                        viewModel.enabled.value = it
+                    },
+                    checked = enabled.value ?: false,
                 )
 
                 Text(
@@ -50,5 +54,5 @@ fun TimeServiceLayout(viewModel: TimeServiceViewModel) {
 @Preview
 @Composable
 fun TimeServiceLayoutPreview() {
-    TimeServiceLayout(TimeServiceViewModel() ,)
+    TimeServiceLayout(TimeServiceViewModel())
 }

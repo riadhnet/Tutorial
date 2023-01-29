@@ -9,12 +9,12 @@ class TimeServiceActivity : AppCompatActivity() {
 
     private val viewModel: TimeServiceViewModel by viewModels()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContent {
             TimeServiceLayout(viewModel)
+
         }
     }
 }
