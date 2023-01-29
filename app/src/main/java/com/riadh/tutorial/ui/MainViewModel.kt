@@ -7,7 +7,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor() : ViewModel() {
+
+    var status = MutableLiveData<String?>()
+
     val text = MutableLiveData<String>().apply {
         value = "Hello MVVM, Hilt, and Jetpack Compose!"
     }
 }
+
+
