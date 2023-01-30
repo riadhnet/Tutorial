@@ -1,4 +1,4 @@
-package com.riadh.tutorial.ui
+package com.riadh.tutorial.main
 
 import android.os.Bundle
 import android.widget.Toast

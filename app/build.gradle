@@ -49,6 +49,11 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "androidx.core:core-ktx:$ktx_version"
     implementation "androidx.activity:activity-ktx:$activity_ktx_version"
+    implementation "androidx.compose.runtime:runtime-livedata:$compose_runtime_livedata"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$ktx_livedata_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$ktx_livedata_version"
+    implementation "androidx.fragment:fragment-ktx:$fragment_ktx_version"
+
     implementation "androidx.activity:activity-compose:$activity_version"
     implementation "androidx.compose.material3:material3:$material3_version"
 
