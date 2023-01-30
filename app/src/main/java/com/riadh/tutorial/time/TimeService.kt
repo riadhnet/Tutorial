@@ -56,13 +56,13 @@ class TimeService : Service(), SensorEventListener {
                 val z = event.values[2]
                 val acceleration = (x * x + y * y + z * z) / (SensorManager.GRAVITY_EARTH * SensorManager.GRAVITY_EARTH)
 
-                if (acceleration > 2) {
+                if (acceleration > 2 && !alreadyCalled) {
                     alreadyCalled = true
                     Log.i("TimeService", "say time")
                     timeSpeechListener?.sayTime()
                     Handler(Looper.getMainLooper()).postDelayed({
                         alreadyCalled = false
-                    }, 5000)
+                    }, 10000)
                 }
             }
         }
