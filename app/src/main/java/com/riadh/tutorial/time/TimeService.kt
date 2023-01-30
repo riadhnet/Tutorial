@@ -8,7 +8,9 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Binder
+import android.os.Handler
 import android.os.IBinder
+import android.os.Looper
 import android.util.Log
 
 class TimeService : Service(), SensorEventListener {
@@ -16,6 +18,8 @@ class TimeService : Service(), SensorEventListener {
     private var accelerometer: Sensor? = null
 
     private var timeSpeechListener: TimeSpeechListener? = null
+
+    var alreadyCalled = false
 
     class TimeServiceBinder(private val service: TimeService) : Binder() {
         fun getService(): TimeService {
@@ -53,7 +57,12 @@ class TimeService : Service(), SensorEventListener {
                 val acceleration = (x * x + y * y + z * z) / (SensorManager.GRAVITY_EARTH * SensorManager.GRAVITY_EARTH)
 
                 if (acceleration > 2) {
+                    alreadyCalled = true
+                    Log.i("TimeService", "say time")
                     timeSpeechListener?.sayTime()
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        alreadyCalled = false
+                    }, 5000)
                 }
             }
         }

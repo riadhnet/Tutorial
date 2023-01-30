@@ -8,6 +8,7 @@ import android.content.ServiceConnection
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.IBinder
+import android.speech.tts.TextToSpeech
 import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -25,6 +26,7 @@ class TimeServiceActivity : AppCompatActivity(), TimeServiceActionListener, Time
     private val viewModel: TimeServiceViewModel  by viewModels()
     private var timeService: TimeService? = null
     private var timeServiceBound = false
+    private var textToSpeech: TextToSpeech? = null
 
     private val serviceConnection = object : ServiceConnection {
         override fun onServiceDisconnected(name: ComponentName) {
@@ -54,6 +56,9 @@ class TimeServiceActivity : AppCompatActivity(), TimeServiceActionListener, Time
             timeService?.setListener(null)
             unbindService(serviceConnection)
             timeServiceBound = false
+            if (textToSpeech?.isSpeaking == true) {
+                textToSpeech?.stop()
+            }
         }
     }
 
@@ -71,6 +76,10 @@ class TimeServiceActivity : AppCompatActivity(), TimeServiceActionListener, Time
     override fun stopTimeService() {
         val intent = Intent(this, TimeService::class.java)
         stopService(intent)
+        unbindService(serviceConnection)
+        if (textToSpeech?.isSpeaking == true) {
+            textToSpeech?.stop()
+        }
     }
 
     private fun requestPermissions() {
@@ -105,8 +114,11 @@ class TimeServiceActivity : AppCompatActivity(), TimeServiceActionListener, Time
 
     private fun showCurrentTimeToast() {
         val currentTime = Calendar.getInstance().time
-        val formattedTime = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(currentTime)
-        Toast.makeText(this, formattedTime, Toast.LENGTH_SHORT).show()
+        val formattedTime = SimpleDateFormat("HH:mm", Locale.getDefault()).format(currentTime)
+
+        textToSpeech = TextToSpeech(this) {
+            textToSpeech?.speak("The current time is $formattedTime", TextToSpeech.QUEUE_FLUSH, null, null)
+        }
     }
 }
 
