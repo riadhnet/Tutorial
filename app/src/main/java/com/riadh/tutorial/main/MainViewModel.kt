@@ -12,6 +12,7 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(private val  application: TutorialApplication) : AndroidViewModel(application) {
     fun openTimeActivity() {
         val intent = Intent(application, TimeServiceActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         application.startActivity(intent)
     }
 
