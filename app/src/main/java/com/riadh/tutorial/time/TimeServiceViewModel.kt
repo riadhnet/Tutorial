@@ -7,8 +7,21 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TimeServiceViewModel @Inject constructor() : ViewModel() {
-    val time = MutableLiveData("")
 
+    private var listener: TimeServiceActionListener? = null
+
+    val time = MutableLiveData("")
     var enabled = MutableLiveData<Boolean?>()
 
+    fun startTimeService() {
+        listener?.startTimeService()
+    }
+
+    fun stopTimeService() {
+        listener?.stopTimeService()
+    }
+
+    fun setListener(listener: TimeServiceActivity) {
+        this.listener = listener
+    }
 }

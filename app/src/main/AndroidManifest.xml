@@ -24,6 +24,11 @@
 
         <activity android:name=".time.TimeServiceActivity" />
 
+        <service
+            android:name=".time.TimeService"
+            android:enabled="true"
+            android:exported="false"/>
+
     </application>
 
 </manifest>

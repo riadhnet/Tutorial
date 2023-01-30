@@ -35,11 +35,17 @@ fun TimeServiceLayout(viewModel: TimeServiceViewModel) {
 
                 Spacer(modifier = Modifier.height(16.dp))
                 Switch(
-                    onCheckedChange = {
-                        viewModel.enabled.value = it
+                    onCheckedChange = { isChecked ->
+                        viewModel.enabled.value = isChecked
+                        if (isChecked) {
+                            viewModel.startTimeService()
+                        } else {
+                            viewModel.stopTimeService()
+                        }
                     },
                     checked = enabled.value ?: false,
-                )
+
+                    )
 
                 Text(
                     text = "Time Reader Enabled",
