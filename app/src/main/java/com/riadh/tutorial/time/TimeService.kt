@@ -7,13 +7,21 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.os.Binder
 import android.os.IBinder
 import android.util.Log
-import android.widget.Toast
 
 class TimeService : Service(), SensorEventListener {
     private lateinit var sensorManager: SensorManager
     private var accelerometer: Sensor? = null
+
+    private var timeSpeechListener: TimeSpeechListener? = null
+
+    class TimeServiceBinder(private val service: TimeService) : Binder() {
+        fun getService(): TimeService {
+            return service
+        }
+    }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         Log.i("TimeService", "TimeService started")
@@ -24,8 +32,12 @@ class TimeService : Service(), SensorEventListener {
         return super.onStartCommand(intent, flags, startId)
     }
 
-    override fun onBind(intent: Intent): IBinder? {
-        return null
+    fun setListener(listener: TimeSpeechListener?) {
+        timeSpeechListener = listener
+    }
+
+    override fun onBind(intent: Intent): IBinder {
+        return TimeServiceBinder(this)
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
@@ -38,12 +50,10 @@ class TimeService : Service(), SensorEventListener {
                 val x = event.values[0]
                 val y = event.values[1]
                 val z = event.values[2]
-
                 val acceleration = (x * x + y * y + z * z) / (SensorManager.GRAVITY_EARTH * SensorManager.GRAVITY_EARTH)
 
-
                 if (acceleration > 2) {
-                    Toast.makeText(applicationContext, "Phone has been shaken", Toast.LENGTH_SHORT).show()
+                    timeSpeechListener?.sayTime()
                 }
             }
         }
