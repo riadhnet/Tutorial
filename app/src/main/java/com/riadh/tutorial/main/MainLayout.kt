@@ -43,11 +43,11 @@ fun MainLayout(viewModel: MainViewModel, appVersion: String) {
 
                 Button(
                     onClick = {
-                        viewModel.status.value = "app2"
+                        viewModel.openDataActivity()
                     },
                     modifier = Modifier.wrapContentSize()
                 ){
-                    Text("App2")
+                    Text("Data Activity")
                 }
 
                 Button(

@@ -18,5 +18,7 @@ ext {
     ktx_livedata_version = "2.6.0-alpha05"
     fragment_ktx_version = "1.5.5"
     compose_runtime_livedata = "1.4.0-alpha04"
+    room_version = "2.5.0"
+    realm_version = "10.10.1"
 
 }

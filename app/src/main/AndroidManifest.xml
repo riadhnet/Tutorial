@@ -35,6 +35,9 @@
             android:enabled="true"
             android:exported="false"/>
 
+        <activity android:name=".room.DataActivity" />
+
+
     </application>
 
 </manifest>
