@@ -4,7 +4,7 @@ import android.content.Intent
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.riadh.tutorial.TutorialApplication
-import com.riadh.tutorial.room.DataActivity
+import com.riadh.tutorial.room.RoomActivity
 import com.riadh.tutorial.time.TimeServiceActivity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -18,7 +18,7 @@ class MainViewModel @Inject constructor(private val application: TutorialApplica
     }
 
     fun openDataActivity() {
-        val intent = Intent(application, DataActivity::class.java)
+        val intent = Intent(application, RoomActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         application.startActivity(intent)
     }

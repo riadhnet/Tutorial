@@ -10,7 +10,7 @@ import com.riadh.tutorial.room.model.MyEntity
 @Dao
 interface MyDao {
     @Insert
-    fun insert(myEntity: MyEntity)
+    fun insertEntity(myEntity: MyEntity)
 
     @Query("SELECT * FROM my_entity")
     fun getAll(): List<MyEntity>
@@ -23,4 +23,8 @@ interface MyDao {
 
     @Delete
     fun delete(myEntity: MyEntity)
+
+    @Query("DELETE FROM my_entity")
+    suspend fun deleteAllEntities()
+
 }
